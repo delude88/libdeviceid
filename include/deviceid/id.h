@@ -5,6 +5,7 @@
 #ifndef CLIENT_INCLUDE_LIBDEVICEID_SRC_DEVICE_ID_H_
 #define CLIENT_INCLUDE_LIBDEVICEID_SRC_DEVICE_ID_H_
 
+#include <cstdio>
 #include <functional>
 #include <string>
 
@@ -15,7 +16,7 @@
 #endif
 
 namespace deviceid {
-static unsigned long get() {
+std::size_t get() {
   std::size_t h1 = std::hash<std::string>{}(getMachineName());
   std::size_t h2 = getCpuHash();
   std::size_t h3 = getVolumeHash();

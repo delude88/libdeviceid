@@ -1,9 +1,9 @@
 #pragma once
 
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 #include <unistd.h>
-#include <errno.h>
+#include <cerrno>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/ioctl.h>
@@ -14,7 +14,7 @@
 #include <netinet/in_systm.h>
 #include <netinet/ip.h>
 #include <netinet/ip_icmp.h>
-#include <assert.h>
+#include <cassert>
 
 #ifdef __APPLE__
 #include <net/if_dl.h>       

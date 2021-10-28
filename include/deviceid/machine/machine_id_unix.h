@@ -17,12 +17,12 @@
 #include <cassert>
 
 #ifdef __APPLE__
-#include <net/if_dl.h>       
-#include <ifaddrs.h>         
+#include <net/if_dl.h>
+#include <ifaddrs.h>
 #include <net/if_types.h>
 #else //!__APPLE__
-// #include <linux/if.h>        
-// #include <linux/sockios.h>   
+#include <linux/if.h>
+#include <linux/sockios.h>
 #endif //!__APPLE__
 
 namespace deviceid {
@@ -54,30 +54,27 @@ void getMacHash(unsigned short &mac1, unsigned short &mac2) {
 
 #ifdef __APPLE__
 
-  struct ifaddrs* ifaphead;
-   if ( getifaddrs( &ifaphead ) != 0 )
-      return;
+  struct ifaddrs *ifaphead;
+  if (getifaddrs(&ifaphead) != 0)
+    return;
 
-   // iterate over the net interfaces
-   bool foundMac1 = false;
-   struct ifaddrs* ifap;
-   for ( ifap = ifaphead; ifap; ifap = ifap->ifa_next )
-   {
-      struct sockaddr_dl* sdl = (struct sockaddr_dl*)ifap->ifa_addr;
-      if ( sdl && ( sdl->sdl_family == AF_LINK ) && ( sdl->sdl_type == IFT_ETHER ))
-      {
-          if ( !foundMac1 )
-          {
-             foundMac1 = true;
-             mac1 = hashMacAddress( (unsigned char*)(LLADDR(sdl))); //sdl->sdl_data) + sdl->sdl_nlen) );
-          } else {
-             mac2 = hashMacAddress( (unsigned char*)(LLADDR(sdl))); //sdl->sdl_data) + sdl->sdl_nlen) );
-             break;
-          }
+  // iterate over the net interfaces
+  bool foundMac1 = false;
+  struct ifaddrs *ifap;
+  for (ifap = ifaphead; ifap; ifap = ifap->ifa_next) {
+    struct sockaddr_dl *sdl = (struct sockaddr_dl *) ifap->ifa_addr;
+    if (sdl && (sdl->sdl_family == AF_LINK) && (sdl->sdl_type == IFT_ETHER)) {
+      if (!foundMac1) {
+        foundMac1 = true;
+        mac1 = hashMacAddress((unsigned char *) (LLADDR(sdl))); //sdl->sdl_data) + sdl->sdl_nlen) );
+      } else {
+        mac2 = hashMacAddress((unsigned char *) (LLADDR(sdl))); //sdl->sdl_data) + sdl->sdl_nlen) );
+        break;
       }
-   }
+    }
+  }
 
-   freeifaddrs( ifaphead );
+  freeifaddrs(ifaphead);
 
 #else // !__APPLE__
 
@@ -141,13 +138,12 @@ unsigned short getVolumeHash() {
 
 #ifdef __APPLE__
 #include <mach-o/arch.h>
-unsigned short getCpuHash()
-{
-    const NXArchInfo* info = NXGetLocalArchInfo();
-    unsigned short val = 0;
-    val += (unsigned short)info->cputype;
-    val += (unsigned short)info->cpusubtype;
-    return val;
+unsigned short getCpuHash() {
+  const NXArchInfo *info = NXGetLocalArchInfo();
+  unsigned short val = 0;
+  val += (unsigned short) info->cputype;
+  val += (unsigned short) info->cpusubtype;
+  return val;
 }
 
 #else // !__APPLE__

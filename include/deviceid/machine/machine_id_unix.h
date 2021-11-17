@@ -149,6 +149,7 @@ unsigned short getCpuHash() {
 #else // !__APPLE__
 
 static void getCpuid(unsigned int *p, unsigned int ax) {
+#if ARCH_X86
   __asm __volatile
   (   "movl %%ebx, %%esi\n\t"
       "cpuid\n\t"
@@ -157,6 +158,7 @@ static void getCpuid(unsigned int *p, unsigned int ax) {
   "=c" (p[2]), "=d" (p[3])
   : "0" (ax)
   );
+#endif
 }
 
 unsigned short getCpuHash() {

@@ -21,8 +21,8 @@
 #include <ifaddrs.h>
 #include <net/if_types.h>
 #else //!__APPLE__
-#include <linux/if.h>
-#include <linux/sockios.h>
+#include <net/if.h>
+//#include <linux/sockios.h>
 #endif //!__APPLE__
 
 namespace deviceid {

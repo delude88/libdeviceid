@@ -2,7 +2,6 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
-#include <intrin.h>
 #include <iphlpapi.h>
 #ifndef _MSC_VER
 #include <cpuid.h>

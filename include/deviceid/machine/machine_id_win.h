@@ -38,7 +38,7 @@ void getMacHash(UINT16 &mac1, UINT16 &mac2) {
   // sort the mac addresses. We don't want to invalidate
   // both macs if they just change order.
   if (mac1 > mac2) {
-    u16 tmp = mac2;
+    UINT16 tmp = mac2;
     mac2 = mac1;
     mac1 = tmp;
   }

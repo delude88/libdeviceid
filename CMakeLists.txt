@@ -24,7 +24,7 @@ target_include_directories(
         INTERFACE $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 if (WIN32)
-    target_compile_definitions(${PROJECT_NAME} WIN32)
+    target_compile_definitions(${PROJECT_NAME} INTERFACE WIN32)
 endif ()
 
 if (IS_TOPLEVEL_PROJECT)

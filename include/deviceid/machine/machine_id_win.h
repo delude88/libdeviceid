@@ -14,9 +14,9 @@
 namespace deviceid {
 // we just need this for purposes of unique machine id. So any one or two mac's is       
 // fine. 
-u16 hashMacAddress(PIP_ADAPTER_INFO info) {
-  u16 hash = 0;
-  for (u32 i = 0; i < info->AddressLength; i++) {
+unsigned short hashMacAddress(PIP_ADAPTER_INFO info) {
+  unsigned short hash = 0;
+  for (uint_32t i = 0; i < info->AddressLength; i++) {
     hash += (info->Address[i] << ((i & 1) * 8));
   }
   return hash;

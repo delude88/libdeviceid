@@ -24,9 +24,9 @@ UINT16 hashMacAddress(PIP_ADAPTER_INFO info) {
 
 void getMacHash(UINT16 &mac1, UINT16 &mac2) {
   IP_ADAPTER_INFO AdapterInfo[32];
-  DWORD dwBufLen = sizeof(AdapterInfo);
+  ULONG dwBufLen = sizeof(AdapterInfo);
 
-  DWORD dwStatus = GetAdaptersInfo(AdapterInfo, &dwBufLen);
+  ULONG dwStatus = GetAdaptersInfo(&AdapterInfo, &dwBufLen);
   if (dwStatus != ERROR_SUCCESS)
     return; // no adapters.
 

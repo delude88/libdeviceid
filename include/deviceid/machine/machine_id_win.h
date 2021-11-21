@@ -14,15 +14,15 @@
 namespace deviceid {
 // we just need this for purposes of unique machine id. So any one or two mac's is       
 // fine. 
-unsigned short hashMacAddress(PIP_ADAPTER_INFO info) {
-  unsigned short hash = 0;
-  for (uint_32t i = 0; i < info->AddressLength; i++) {
+UINT16 hashMacAddress(PIP_ADAPTER_INFO info) {
+  UINT16 hash = 0;
+  for (UINT32 i = 0; i < info->AddressLength; i++) {
     hash += (info->Address[i] << ((i & 1) * 8));
   }
   return hash;
 }
 
-void getMacHash(u16 &mac1, u16 &mac2) {
+void getMacHash(UINT16 &mac1, UINT16 &mac2) {
   IP_ADAPTER_INFO AdapterInfo[32];
   DWORD dwBufLen = sizeof(AdapterInfo);
 
@@ -44,22 +44,22 @@ void getMacHash(u16 &mac1, u16 &mac2) {
   }
 }
 
-u16 getVolumeHash() {
+UINT16 getVolumeHash() {
   DWORD serialNum = 0;
 
   // Determine if this volume uses an NTFS file system.
   GetVolumeInformation("c:\\", NULL, 0, &serialNum, NULL, NULL, NULL, 0);
-  u16 hash = (u16)((serialNum + (serialNum >> 16)) & 0xFFFF);
+  UINT16 hash = (UINT16)((serialNum + (serialNum >> 16)) & 0xFFFF);
 
   return hash;
 }
 
-u16 getCpuHash() {
+UINT16 getCpuHash() {
   int cpuinfo[4] = {0, 0, 0, 0};
   __cpuid(cpuinfo, 0);
-  u16 hash = 0;
-  u16 *ptr = (u16 * )(&cpuinfo[0]);
-  for (u32 i = 0; i < 8; i++)
+  UINT16 hash = 0;
+  UINT16 *ptr = (UINT16 * )(&cpuinfo[0]);
+  for (UINT32 i = 0; i < 8; i++)
     hash += ptr[i];
 
   return hash;

@@ -25,6 +25,7 @@ target_include_directories(
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 if (WIN32)
     target_compile_definitions(${PROJECT_NAME} INTERFACE WIN32)
+    target_link_libraries(${PROJECT_NAME} INTERFACE Iphlpapi.lib)
 endif ()
 
 if (IS_TOPLEVEL_PROJECT)

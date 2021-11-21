@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <intrin.h>
 #include <iphlpapi.h>
+#include <WinDef.h>
 #ifndef _MSC_VER
 #include <cpuid.h>
 #else

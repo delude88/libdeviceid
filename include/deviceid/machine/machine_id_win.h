@@ -64,7 +64,7 @@ UINT16 getCpuHash() {
 }
 
 const char *getMachineName() {
-  static wchar_t computerName[1024];
+  static char computerName[1024];
   DWORD size = 1024;
   GetComputerNameA(computerName, &size);
   return &(computerName[0]);

@@ -46,7 +46,7 @@ UINT16 getVolumeHash() {
   DWORD serialNum = 0;
 
   // Determine if this volume uses an NTFS file system.
-  GetVolumeInformation("c:\\", NULL, 0, &serialNum, NULL, NULL, NULL, 0);
+  GetVolumeInformation(L"c:\\", NULL, 0, &serialNum, NULL, NULL, NULL, 0);
   UINT16 hash = (UINT16)((serialNum + (serialNum >> 16)) & 0xFFFF);
 
   return hash;
@@ -64,9 +64,11 @@ UINT16 getCpuHash() {
 }
 
 const char *getMachineName() {
-  static char computerName[1024];
+  static char name[1024];
+  static wchar_t computerName[1024];
   DWORD size = 1024;
   GetComputerName(computerName, &size);
-  return &(computerName[0]);
+  static char name = wcstombs(name, computerName, sizeof(name));
+  return &(name[0]);
 }
 }
